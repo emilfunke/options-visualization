@@ -14,22 +14,33 @@ buy_price = [options["Kurs EK"][i] for i in range(len(options["Kurs EK"]))]
 option_name = [options["Option"][i] for i in range(len(options["Option"]))]
 
 dax = yf.download("^GDAXI", start=sell_date[0], end=sell_date[len(sell_date)-1])
+vola = yf.download("^VIX", start=sell_date[0], end=sell_date[len(sell_date)-1])
 
-plt.figure(figsize=(16, 9))
+fig, ax1 = plt.subplots(1, 1, figsize=(16, 9))
+
+ax1.grid()
 
 for i in range(length):
     y = int(option_name[i][1:])
     color = option_name[i][0]
     if color == "C":
-        color = "blue"
+        color = "green"
     else:
         color = "red"
     x1, x2 = sell_date[i], buy_date[i]
-    x = [x1, x2]
-    y = [y, y]
+
     if x1 < x2:
-        plt.plot(x, y, color)
+        x = [x1, x2]
+        y = [y, y]
+        ax1.plot(x, y, color)
+    elif x2 < x1:
+        print("safety")
+        x = [x2, x1]
+        y = [y, y]
+        ax1.plot(x, y, "blue")
 
 plt.title("DAX")
-dax["Adj Close"].plot(color="black")
-plt.savefig("test.jpg")
+ax1.plot(dax["Adj Close"], color="black")
+ax2 = ax1.twinx()
+ax2.plot(vola["Adj Close"], color="purple")
+plt.savefig("ich.jpg")
