@@ -1,2 +1,2 @@
 # options-visualization
-Visualize my DAX option trading based on the excel file I keep to analyze the performance and risks I take
+Visualize Dax against its volatility and show the positions of the puts and calls placed for their durations
