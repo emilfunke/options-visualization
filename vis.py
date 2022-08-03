@@ -4,7 +4,7 @@ import datetime
 from datetime import date
 from pandas_datareader import data as pdr
 import matplotlib.pyplot as plt
-from matplotlib import style
+
 
 options = pd.read_excel("options.xlsx").to_numpy()
 
